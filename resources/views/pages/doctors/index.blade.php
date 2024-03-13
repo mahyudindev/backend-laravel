@@ -81,12 +81,14 @@
                                                 </td>
                                                 <td>{{ $doctor->created_at }}</td>
                                                 <td>
-                                                    <div class="d-flex justify-content-center">
+                                                    {{-- <div class="d-flex justify-content-center">
                                                         <a href='{{ route('doctors.edit', $doctor->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
+
+
 
                                                         <form action="{{ route('doctors.destroy', $doctor->id) }}"
                                                             method="POST" class="ml-2">
@@ -97,7 +99,56 @@
                                                                 <i class="fas fa-times"></i> Delete
                                                             </button>
                                                         </form>
+                                                    </div> --}}
+                                                    <div class="d-flex justify-content-center">
+                                                        <a href='{{ route('doctors.edit', $doctor->id) }}'
+                                                            class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                                            title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        <form action="{{ route('doctors.destroy', $doctor->id) }}"
+                                                            method="POST" class="ml-2"
+                                                            id="delete-form-{{ $doctor->id }}">
+                                                            <input type="hidden" name="_method" value="DELETE" />
+                                                            <input type="hidden" name="_token"
+                                                                value="{{ csrf_token() }}" />
+                                                            <a class="btn btn-danger btn-action" data-toggle="modal"
+                                                                data-target="#confirmDeleteModal{{ $doctor->id }}"
+                                                                title="Delete">
+                                                                <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        </form>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="confirmDeleteModal{{ $doctor->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="confirmDeleteModalLabel{{ $doctor->id }}"
+                                                            aria-hidden="true" data-backdrop="false">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="confirmDeleteModalLabel{{ $doctor->id }}">
+                                                                            Are You Sure?</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        This action cannot be undone. Do you want to
+                                                                        continue?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            onclick="document.getElementById('delete-form-{{ $doctor->id }}').submit()">Yes</button>
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Cancel</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
+
                                                 </td>
                                             </tr>
                                         @endforeach

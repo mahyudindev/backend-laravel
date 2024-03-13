@@ -81,18 +81,6 @@
                                                         <a href='{{ route('users.edit', $user->id) }}'
                                                             class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                             title="Edit"><i class="fas fa-pencil-alt"></i></a>
-
-                                                        {{-- <form action="{{ route('users.destroy', $user->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE" />
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" />
-                                                            <a class="btn btn-danger btn-action" data-toggle="tooltip"
-                                                                title="Delete"
-                                                                data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                                data-confirm-yes="event.preventDefault();document.getElementById('delete-form-{{ $user->id }}').submit();"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        </form> --}}
                                                         <form action="{{ route('users.destroy', $user->id) }}"
                                                             method="POST" class="ml-2"
                                                             id="delete-form-{{ $user->id }}">
