@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('users.update', $user) }}" method="POST">
+                    <form action="{{ route('doctors.update', $doctor->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -40,11 +40,37 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text"
-                                    class="form-control @error('name')
+                                    class="form-control @error('doctor_name')
                                 is-invalid
                             @enderror"
-                                    name="name" value="{{ $user->name }}">
-                                @error('name')
+                                    name="doctor_name" value="{{ $doctor->doctor_name }}">
+                                @error('doctor_name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Specialist</label>
+                                <input type="text"
+                                    class="form-control @error('doctor_specialist')
+                                is-invalid
+                            @enderror"
+                                    name="doctor_specialist" value="{{ $doctor->doctor_specialist }}">
+                                @error('doctor_specialist')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="number"
+                                    class="form-control @error('doctor_phone')
+                                is-invalid
+                            @enderror"
+                                    name="doctor_phone" value="{{ $doctor->doctor_phone }}">
+                                @error('doctor_phone')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -53,60 +79,28 @@
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email"
-                                    class="form-control @error('email')
+                                    class="form-control @error('doctor_email')
                                 is-invalid
                             @enderror"
-                                    name="email" value="{{ $user->email }}">
-                                @error('email')
+                                    name="doctor_email" value="{{ $doctor->doctor_email }}">
+                                @error('doctor_email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control @error('password')
+                                <label>SIP</label>
+                                <input type="text"
+                                    class="form-control @error('sip')
                                 is-invalid
                             @enderror"
-                                        name="password">
-                                </div>
-                                @error('password')
+                                    name="sip" value="{{ $doctor->sip }}">
+                                @error('sip')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Roles</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="admin" class="selectgroup-input"
-                                            @if ($user->role == 'admin') checked @endif>
-                                        <span class="selectgroup-button">Admin</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="doctor" class="selectgroup-input"
-                                            @if ($user->role == 'doctor') checked @endif>
-                                        <span class="selectgroup-button">Doctor</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="user" class="selectgroup-input"
-                                            @if ($user->role == 'user') checked @endif>
-                                        <span class="selectgroup-button">User</span>
-                                    </label>
-
-                                </div>
                             </div>
                         </div>
                         <div class="card-footer text-right">

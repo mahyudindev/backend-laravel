@@ -81,7 +81,7 @@
                                                 </td>
                                                 <td>{{ $doctor->created_at }}</td>
                                                 <td>
-                                                    
+
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('doctors.edit', $doctor->id) }}'
                                                             class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
