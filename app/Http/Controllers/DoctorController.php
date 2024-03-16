@@ -25,28 +25,28 @@ class DoctorController extends Controller
         return view('pages.doctors.create');
     }
 
-    //store
-    public function store(Request $request)
-    {
-        $request->validate([
-            'doctor_name' => 'required',
-            'doctor_specialist' => 'required',
-            'doctor_phone' => 'required',
-            'doctor_email' => 'required|email',
-            'sip' => 'required',
-        ]);
+   public function store(Request $request)
+   {
+       $request->validate([
+           'doctor_name' => 'required',
+           'doctor_specialist' => 'required',
+           'doctor_phone' => 'required',
+           'doctor_email' => 'required|email',
+           'sip' => 'required',
+       ]);
 
-        DB::table('doctors')->insert([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_phone' => $request->doctor_phone,
-            'doctor_email' => $request->doctor_email,
-            'sip' => $request->sip,
-        ]);
+       DB::table('doctors')->insert([
+           'doctor_name' => $request->doctor_name,
+           'doctor_specialist' => $request->doctor_specialist,
+           'doctor_phone' => $request->doctor_phone,
+           'doctor_email' => $request->doctor_email,
+           'sip' => $request->sip,
+           'created_at' => now(),
+           'updated_at' => now(),
+       ]);
 
-        return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
-    }
-
+       return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
+   }
     //show
     public function show($id)
     {
@@ -69,15 +69,26 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sip' => 'required',
         ]);
+
+        $doctor = DB::table('doctors')->where('id', $id)->first();
+        if ($request->{('photo')}) {
+            $photo_path = $request->file('photo')->store('doctors');
+        } else {
+            $photo_path = $doctor->photo;
+        }
 
         DB::table('doctors')->where('id', $id)->update([
             'doctor_name' => $request->doctor_name,
             'doctor_specialist' => $request->doctor_specialist,
             'doctor_phone' => $request->doctor_phone,
             'doctor_email' => $request->doctor_email,
+            'photo' => $photo_path,
             'sip' => $request->sip,
+            'updated_at' => now(),
+
         ]);
 
         return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');

@@ -57,7 +57,7 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
+                                            <th>Photo</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
@@ -67,6 +67,19 @@
                                         </tr>
                                         @foreach ($doctors as $doctor)
                                             <tr>
+                                                <td>
+                                                    @if ($doctor->photo)
+                                                        <img src="{{ $doctor->photo }}" width="50px" />
+                                                    @else
+                                                        No Image
+                                                    @endif
+                                                    {{-- @if ($doctor->photo)
+                                                        <img src="{{ asset('doctors/' . $doctor->photo) }}"
+                                                            width="50px" />
+                                                    @else
+                                                        No Image
+                                                    @endif --}}
+                                                </td>
 
                                                 <td>{{ $doctor->doctor_name }}
                                                 </td>
